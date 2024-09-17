@@ -1,28 +1,28 @@
-# 🌲 Cypress, do Zero à Nuvem ☁️
+# Cypress, do Zero a Núvem
+Projeto simples com Cypress do zero a núvem, feito con base no curso da escola Talking Abouit Testing.
 
-👋 Seja bem-vindo(a)!
+## Pré-requisitos
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+É necessário que você tenha o git, Node.js e npm instalados para clonar e rodar esse projeto.
 
-## O que você vai aprender?
+Estou usando as versões `2.46.0`, `20.16.0` e `10.8.1` para o git, Node.js e npm respectivamente, sugiro que você use as mesmas versões ou as últimas versões LTS de cada um.
 
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar upload de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
-- Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
+## Instalação
 
-## Vamos começar?
+No seu terminal execute `npm install` para instalar as dev dependencies.
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+## Testes
 
-___
+Neste projeto você pode rodar os testes em um Desktop ou Mobile viewport.
 
-Este é um curso da **Escola Talking About Testing**.
+## Desktop
+
+No seu terminal execute `npx cypress open` para executar os testes no modo GUI (Usando a interface gráfica).
+
+ou execute `npx cypress run` para executar os testes no modo headless (Sem a interface gráfica).
+
+## Mobile
+
+No seu terminal execute `npm run cy:test:mobile` para executar o teste no modo headlesse em uma viewport de mobile.
+
+ou execute `npm run cy:open:mobile` para executar os testes no modelo de viewport mobile e interface gráfica ativa.
