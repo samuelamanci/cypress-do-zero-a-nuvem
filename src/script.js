@@ -14,7 +14,7 @@ document.querySelector('#phone-checkbox')
     isPhoneRequired = !isPhoneRequired
   })
 
-document.uerySelector('button[type="submit"]')
+document.querySelector('button[type="submit"]')
   .addEventListener('click', function(event) {
     event.preventDefault()
     const firstNameField = document.getElementById('firstName')
