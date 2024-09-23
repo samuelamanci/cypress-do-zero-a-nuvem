@@ -12,4 +12,3 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           command: npm run test:cloud
-//45680cab-81e0-414c-b15c-1226d5df5684
