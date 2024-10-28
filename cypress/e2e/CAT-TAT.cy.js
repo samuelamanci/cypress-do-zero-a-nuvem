@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 
-
 describe('Central de Atendimento ao Cliente TAT', () => {
 
   beforeEach(() => {
@@ -14,6 +13,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   it('Preenche os campos obrigatórios e envia o formulário', () => {
+    cy.clock()
+
     const LongText = Cypress._.repeat('Texto_Longo__', 200)
 
     cy.get('#firstName').type('Samuel')
@@ -25,21 +26,26 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.success').should('be.visible')
 
+    cy.tick(3000)
+
+    cy.get('.success').should('not.be.visible')
   }) 
   
-  it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
-    //Ações
-    cy.get('#firstName').type('Samuel')
-    cy.get('#lastName').type('Oliveira')
-    cy.get('#email').type('samuel@@gmail.com')
-    cy.get('#phone').type('teste')
-    cy.get('#open-text-area').type('Texto de teste')
-    cy.get('button[type="submit"]').click()
-
-    //Validações
-    cy.get('#phone').should('have.value', '')
-    cy.get('.error').should('be.visible')
-  });
+  Cypress._.times(5, () => {
+    it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
+      //Ações
+      cy.get('#firstName').type('Samuel')
+      cy.get('#lastName').type('Oliveira')
+      cy.get('#email').type('samuel@@gmail.com')
+      cy.get('#phone').type('teste')
+      cy.get('#open-text-area').type('Texto de teste')
+      cy.get('button[type="submit"]').click()
+  
+      //Validações
+      cy.get('#phone').should('have.value', '')
+      cy.get('.error').should('be.visible')
+    });
+  })
 
   it('Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
     //Ações
@@ -210,5 +216,47 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .click()
 
     cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
+  });
+
+  it('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
+    cy.get('.success')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
+      .invoke('hide')
+      .should('not.be.visible')
+    cy.get('.error')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
+      .invoke('hide')
+      .should('not.be.visible')
+  })
+
+  it('Preenche o campo da área de texto usando o comando invoke', () => {
+      cy.get('#open-text-area')
+        .invoke('val', 'Texto teste')
+        .should('have.value', 'Texto teste')
+  });
+
+  it('Faz uma requisição HTTP', () => {
+    cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
+      .as('getRequest')
+      .its('status')
+      .should('be.equal', 200)
+    cy.get('@getRequest')
+      .its('statusText')
+      .should('be.equal', 'OK')
+    cy.get('@getRequest')
+      .its('body')
+      .should('include', 'CAC TAT')
+  });
+  
+  it('Encontra o gato escondido na aplicação', () => {
+      cy.get('#cat')
+        .invoke('show')
+        .should('be.visible')
   });
 })
